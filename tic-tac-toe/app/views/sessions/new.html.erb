@@ -1,0 +1,25 @@
+<%if @errors %>
+<ul>
+  <% @errors.each do |error|%>
+  <li><%= error %></li>
+  <%end%>
+</ul>
+<%end%>
+
+
+<div class="login user_form">
+<%= form_for :sessions, :url => sessions_path do |form| %>
+  <div>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :password %>
+    <%= form.text_field :password %>
+  </div>
+  <div class="">
+    <%= form.submit :Login %>
+  </div>
+<%end%>
+</div>
