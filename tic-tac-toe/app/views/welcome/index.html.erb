@@ -1,0 +1,10 @@
+
+<h1>Welcome To Tic-Tac-Toe</h1>
+
+<%if logged_in?%>
+  <%= current_user.username %><br>
+  <%= link_to 'logout', session_path(current_user.id), method: :delete %>
+<%else%>
+  <a href="/sessions/new">Login</a>
+  <a href="/users/new">New User</a>
+<%end%>
