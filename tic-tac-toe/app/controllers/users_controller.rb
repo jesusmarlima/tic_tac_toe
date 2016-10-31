@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
 
-  def index
+  def new
     @user = User.new
   end
+
 
   def create
     if @new_user = User.new(user_params)
@@ -21,6 +22,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(session[:id])
+    @game = Game.new
   end
 
 
