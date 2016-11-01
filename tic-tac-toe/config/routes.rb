@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   post 'games/computer_move/:id', to: 'games#get_computer_move', as: 'computer_move'
+  post 'games/save/:id', to: 'games#save', as: 'save_game'
 
 
 end

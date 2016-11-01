@@ -37,6 +37,12 @@ class Board extends React.Component {
     return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)} />;
   }
 
+  renderLinkTo(status) {
+    if(status){
+      return <LinkToUser game_id={this.props.game_id}/>
+    }
+  }
+
   calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
@@ -57,19 +63,30 @@ class Board extends React.Component {
   return null;
 }
 
+  save_game(winner){
+    var game_result = {winner : winner}
+    $.ajax({
+      url: '/games/save/' + this.props.game_id,
+      method: 'POST',
+      data: game_result
+    }).done((response) => {
+
+    })
+  }
+
 
   render() {
 
     const winner = this.calculateWinner(this.state.squares);
     let status;
     if (winner) {
-      status = 'Winner: ' + winner;
-    } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
+      this.save_game(winner)
+      status = 'Winner: \n' + winner;
     }
     return (
       <div>
         <div className="status">{status}</div>
+        <div className="status">{this.renderLinkTo(status)}</div>
         <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}

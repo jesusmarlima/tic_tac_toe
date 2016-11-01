@@ -22,9 +22,11 @@ class GamesController < ApplicationController
     render json: @game.computer_move(board)
   end
 
-  # private
-  # def game_params
-  #   params.require(:game).permit(:squares)
-  # end
+  def save
+    @game = Game.find_by(id: params[:id])
+    winner = (params[:winner] == 'X')
+    @game.update(end_time: Time.now, won: winner)
+    render json: @game
+  end
 
 end
