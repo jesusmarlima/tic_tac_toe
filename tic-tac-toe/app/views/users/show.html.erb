@@ -26,7 +26,7 @@
     <tbody>
       <%@user.games.each do |game| %>
           <tr>
-              <td><%= game.won? ? "User" : "Computer" %> </td>
+              <td><%= game.won? ? @user.username : "Computer" %> </td>
               <td><%= game.created_at %>  </td>
               <td><%= game.end_time  %>  </td>
               <%if game.end_time%>
