@@ -3,3 +3,25 @@
 <%= form_for [@user , @game] do |f| %>
   <input type="submit" name="newGame" value="New Game">
 <% end %>
+
+<div class="">
+  <p>
+    Total Games: <%=@user.games_playeds %>
+  </p>
+  <p>
+    Wins: <%= @user.wins %>
+  </p>
+
+
+</div>
+<div class="">
+  <ul>
+    <%@user.games.each do |game| %>
+        <li>
+            <p>Winner: <%= game.won? ? "User" : "Computer" %> </p>
+            <p>Create at: <%= game.created_at %>  </p>
+            <p>End at: <%= game.end_time  %>  </p>
+        </li>
+    <%end%>
+  </ul>
+</div>

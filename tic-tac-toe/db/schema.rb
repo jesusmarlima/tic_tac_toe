@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20161031145402) do
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
-    t.boolean  "won?",       default: false
+    t.boolean  "won",        default: false
     t.integer  "user_id"
     t.datetime "end_time"
     t.datetime "created_at",                 null: false

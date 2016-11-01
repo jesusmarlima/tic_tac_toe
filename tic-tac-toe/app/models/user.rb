@@ -3,4 +3,13 @@ class User < ApplicationRecord
   validates :email, :password_digest, presence: true
   validates :email, uniqueness: true
   has_many :games
+
+  def games_playeds
+    self.games.length
+  end
+
+  def wins
+    self.games.where(won: true).count
+  end
+    
 end
