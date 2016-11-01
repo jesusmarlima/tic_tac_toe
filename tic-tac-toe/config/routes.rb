@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   root 'welcome#index'
 
-  post 'games/computer_move', to: 'games#get_computer_move', as: 'computer_move'
+  post 'games/computer_move/:id', to: 'games#get_computer_move', as: 'computer_move'
 
 
 end

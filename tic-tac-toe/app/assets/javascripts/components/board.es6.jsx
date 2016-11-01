@@ -14,21 +14,23 @@ class Board extends React.Component {
     if (this.calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
-      squares: squares,
-      xIsNext: !this.state.xIsNext,
-    });
-
+    squares[i] = 'X';
+    var squere_obj = {squares : squares}
     $.ajax({
-      url: 'games/computer_move',
-      method: 'POST'
-      data: squares
+      url: '/games/computer_move/' + this.props.game_id,
+      method: 'POST',
+      data: squere_obj
     }).done((response) => {
       this.setState({
         squares: response
       })
     })
+
+    this.setState({
+      squares: squares,
+      xIsNext: !this.state.xIsNext,
+    });
+
   }
 
   renderSquare(i) {
