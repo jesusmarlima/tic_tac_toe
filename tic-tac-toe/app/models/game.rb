@@ -7,7 +7,10 @@ class Game < ApplicationRecord
       return changed.flatten
     else
      if game.index("")
-        game[game.index("")] = 'O'
+      #  byebug
+        # game[game.index("")] = 'O'
+        index = game.each_index.select {|i| game[i] == ""}.sample
+        game[index] = 'O'
      end
    end
    game
@@ -109,49 +112,6 @@ class Game < ApplicationRecord
   	end
   	 fill_cells(array)
   end
-
-  # diagonal_check(array)
-
-  #full_win_check(array)
-  # fill_cells(array)
-  # row_and_col_check(get_rows(array))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
