@@ -6,17 +6,48 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
   </head>
 
   <body>
-    <a href="/">Home</a> | 
-    <%if current_user %>
-      <%= link_to current_user.username, user_path(current_user.id)%> |
-      <%= link_to 'logout', session_path(current_user.id), method: :delete %>
-    <% else %>
-      <%= link_to 'new User', new_user_path %> |
-      <%= link_to 'Login', new_session_path %>
-    <% end %>
+    <div class="container">
+      <nav>
+          <div class="nav-wrapper #4a148c purple darken-4">
+            <a href="/" class="brand-logo">Tic-tac-Toe</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <%if current_user %>
+                <li><%= link_to current_user.username, user_path(current_user.id)%></li>
+                <li><%= link_to 'logout', session_path(current_user.id), method: :delete %></li>
+              <% else %>
+                <li><%= link_to 'new User', new_user_path %></li>
+                <li><%= link_to 'Login', new_session_path %></li>
+              <% end %>
+            </ul>
+          </div>
+        </nav>
     <%= yield %>
+    <footer class="page-footer #4a148c purple darken-4">
+      <div class="container">
+        <div class="row #4a148c purple darken-4">
+          <div class="col l6 s12">
+            <h5 class="white-text">Tic-Tac-Toe</h5>
+            <p class="grey-text text-lighten-4">best game on the web!!!!</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Group</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="http://github.com/akhinchey">Amanda</a></li>
+              <li><a class="grey-text text-lighten-3" href="http://github.com/jesusmarlima">Jesusmar</a></li>
+              <li><a class="grey-text text-lighten-3" href="http://github.com/thepaulduca">The Paul Duca</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
   </body>
 </html>

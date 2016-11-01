@@ -9,12 +9,15 @@ class Board extends React.Component {
   }
 
   handleClick(i) {
+    debugger
     const squares = this.state.squares.slice();
 
     if (this.calculateWinner(squares) || squares[i]) {
       return;
     }
+
     squares[i] = 'X';
+
     var squere_obj = {squares : squares}
     $.ajax({
       url: '/games/computer_move/' + this.props.game_id,
@@ -25,12 +28,6 @@ class Board extends React.Component {
         squares: response
       })
     })
-
-    this.setState({
-      squares: squares,
-      xIsNext: !this.state.xIsNext,
-    });
-
   }
 
   renderSquare(i) {
