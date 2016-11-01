@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   end
   resources :sessions, only: [:new, :create, :destroy]
   root 'welcome#index'
+
+  post 'games/computer_move', to: 'games#get_computer_move', as: 'computer_move'
+
+
 end
