@@ -1,27 +1,41 @@
-<h2>Hello</h2>
-
-<%= form_for [@user , @game] do |f| %>
-  <input type="submit" name="newGame" value="New Game">
-<% end %>
-
+<div class="">
+  <h4><%=@user.username%></h4>
+    <%= form_for [@user , @game] do |f| %>
+      <button class="btn waves-effect #2979ff blue accent-3" type="submit" name="action">New Game</button>
+    <% end %>
+</div>
 <div class="">
   <p>
     Total Games: <%=@user.games_playeds %>
   </p>
   <p>
-    Wins: <%= @user.wins %>
+    Wins/losses: <%= @user.wins %> / <%= @user.losses %>
   </p>
-
 
 </div>
 <div class="">
-  <ul>
-    <%@user.games.each do |game| %>
-        <li>
-            <p>Winner: <%= game.won? ? "User" : "Computer" %> </p>
-            <p>Create at: <%= game.created_at %>  </p>
-            <p>End at: <%= game.end_time  %>  </p>
-        </li>
-    <%end%>
-  </ul>
+  <table class="striped">
+    <thead>
+      <tr>
+          <th data-field="winner">Winner</th>
+          <th data-field="start">Start</th>
+          <th data-field="end">end</th>
+          <th data-field="duration">Time spent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%@user.games.each do |game| %>
+          <tr>
+              <td><%= game.won? ? "User" : "Computer" %> </td>
+              <td><%= game.created_at %>  </td>
+              <td><%= game.end_time  %>  </td>
+              <%if game.end_time%>
+                <td><%= (game.end_time - game.created_at) %>  </td>
+              <% else %>
+              <td> </td>
+              <% end %>
+          </tr>
+      <%end%>
+    </tbody>
+  </table>
 </div>
