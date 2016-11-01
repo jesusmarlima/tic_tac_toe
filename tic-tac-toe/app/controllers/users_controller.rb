@@ -6,16 +6,17 @@ class UsersController < ApplicationController
 
 
   def create
-    if @new_user = User.new(user_params)
-      if @new_user.save
-        session[:id] = @new_user.id
+    if @user = User.new(user_params)
+      if @user.save
+        session[:id] = @user.id
+        @game = Game.new
         render :show
       else
-        @errors = @new_user.errors.full_messages
+        @errors = @user.errors.full_messages
         render :new
       end
     else
-      @errors = @new_user.errors.full_messages
+      @errors = @user.errors.full_messages
       render :new
     end
   end
