@@ -5,7 +5,6 @@ class GamesController < ApplicationController
   end
 
   def create
-    # byebug
     if @user = User.find_by(id: params[:user_id])
       @game = Game.new(user: @user)
       @game.save
@@ -19,8 +18,13 @@ class GamesController < ApplicationController
 
   def get_computer_move
     @game = Game.find_by(id: params[:id])
-    board = game_params[:game]
-    @game.computer_move(board)
+    board = params[:squares]
+    render json: @game.computer_move(board)
   end
+
+  # private
+  # def game_params
+  #   params.require(:game).permit(:squares)
+  # end
 
 end
