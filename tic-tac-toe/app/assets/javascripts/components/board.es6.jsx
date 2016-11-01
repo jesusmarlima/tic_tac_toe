@@ -10,7 +10,7 @@ class Board extends React.Component {
 
   handleClick(i) {
     const squares = this.state.squares.slice();
-  
+
     if (this.calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -19,6 +19,16 @@ class Board extends React.Component {
       squares: squares,
       xIsNext: !this.state.xIsNext,
     });
+
+    $.ajax({
+      url: 'games/computer_move',
+      method: 'POST'
+      data: squares
+    }).done((response) => {
+      this.setState({
+        squares: response
+      })
+    })
   }
 
   renderSquare(i) {
