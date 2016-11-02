@@ -9,7 +9,6 @@ class Board extends React.Component {
   }
 
   handleClick(i) {
-    debugger
     const squares = this.state.squares.slice();
 
     if (this.calculateWinner(squares) || squares[i]) {
@@ -51,14 +50,28 @@ class Board extends React.Component {
     [0, 4, 8],
     [2, 4, 6],
   ];
+
+  if(this.checkTie(squares) === 'Tie'){
+      return "Computer wins the tie, second place is just the first loser! "
+  }
+
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
     }
   }
+
   return null;
 }
+
+  checkTie(squares){
+    if (squares.indexOf(null) >= 0){
+      return ""
+    } else if (squares.indexOf("") === -1)
+      return 'Tie'
+    }
+
 
   save_game(winner){
     var game_result = {winner : winner}
