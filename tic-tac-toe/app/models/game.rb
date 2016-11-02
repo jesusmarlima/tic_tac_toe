@@ -2,6 +2,8 @@ class Game < ApplicationRecord
   belongs_to :user
 
   def computer_move(game)
+    return game if calculate_winner(game) == "X"
+
     if game[4]==""
       game[4] ="O"
       return game
@@ -14,8 +16,6 @@ class Game < ApplicationRecord
       return changed_2.flatten
     else
      if game.index("")
-      #  byebug
-        # game[game.index("")] = 'O'
         index = game.each_index.select {|i| game[i] == ""}.sample
         game[index] = 'O'
      end
@@ -205,8 +205,23 @@ class Game < ApplicationRecord
     	 user_fill_cells(array)
     end
 
-
-
+    def calculate_winner(array)
+      lines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+      ]
+      lines.each do |line|
+        if array[line[0]] && array[line[0]] == array[line[1]] && array[line[0]] == array[line[2]]
+          return array[line[0]]
+        end
+      end
+    end
 
 
 end
