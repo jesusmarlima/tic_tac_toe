@@ -2,12 +2,22 @@ class Game < ApplicationRecord
   belongs_to :user
 
   def computer_move(game)
+    return game if calculate_winner(game) == "X"
+
+    if game[4]==""
+      game[4] ="O"
+      return game
+    end
     changed = full_win_check(game)
+    changed_2 = user_full_win_check(game)
     if game != changed
       return changed.flatten
+    elsif game != changed_2
+      return changed_2.flatten
     else
      if game.index("")
-        game[game.index("")] = 'O'
+        index = game.each_index.select {|i| game[i] == ""}.sample
+        game[index] = 'O'
      end
    end
    game
@@ -31,6 +41,10 @@ class Game < ApplicationRecord
 
   def find_winning_line(array)
   	array.find_index {|row| row.count("O") == 2 && row.count("") == 1 }
+  end
+
+  def find_block_line(array)
+    array.find_index {|row| row.count("X") == 2 && row.count("") == 1 }
   end
 
 
@@ -104,60 +118,110 @@ class Game < ApplicationRecord
   		new_arry << x
   	end
   	if array == new_arry
-  		puts array
+  		# puts array
   		return diagonal_check(array) if diagonal_check(array)
   	end
   	 fill_cells(array)
   end
 
-  # diagonal_check(array)
 
-  #full_win_check(array)
-  # fill_cells(array)
-  # row_and_col_check(get_rows(array))
+   def user_find_winning_line(array)
+     array.find_index {|row| row.count("X") == 2 && row.count("") == 1 }
+   end
 
+    def user_row_and_col_check(arrays_to_check)
+    	if index = user_find_winning_line(arrays_to_check)
+    		arrays_to_check[index].map! do |cell|
+    			if cell == ""
+    				cell = "O"
+    			end
+    			cell
+    		end
 
-
-
-
-
-
-
-
-
-
-
-
-
+    end
+    arrays_to_check
+    end
 
 
+    def user_fill_cells(array)
+    	rows = get_rows(array)
+    	test_rows = get_rows(array)
+    	cols = get_cols(array)
+    	cols_rows = get_cols(array)
 
 
+    	if test_rows == user_row_and_col_check(rows)
+    		return user_row_and_col_check(cols).transpose
+    	end
+
+    	user_row_and_col_check(rows)
+    end
+
+    def user_right_diag_check(diag, original_array)
+    	if diag.count("X") == 2 && diag.count("") == 1
+    		cell_index = diag.find_index('')
+    		if cell_index == 0
+    			original_array[0] = "O"
+    		elsif cell_index == 1
+    			original_array[4] = "O"
+    		elsif cell_index == 2
+    			original_array[8] = "O"
+    		end
+    	end
+    	original_array
+    end
+
+    def user_left_diag_check(diag, original_array)
+    	if diag.count("X") == 2 && diag.count("") == 1
+    		cell_index = diag.find_index('')
+    		if cell_index == 0
+    			original_array[2] = "O"
+    		elsif cell_index == 1
+    			original_array[4] = "O"
+    		elsif cell_index == 2
+    			original_array[6] = "O"
+    		end
+    	end
+    	original_array
+    end
+
+    def user_diagonal_check(array)
+    	if array == user_right_diag_check(get_right_diag(array), array.dup)
+    		return user_left_diag_check(get_left_diag(array), array.dup)
+    	end
+    	user_right_diag_check(get_right_diag(array), array.dup)
+    end
 
 
+    def user_full_win_check(array)
+    	new_arry = []
+    	user_fill_cells(array).flatten.each do |x|
+    		new_arry << x
+    	end
+    	if array == new_arry
+    		# puts array
+    		return user_diagonal_check(array) if user_diagonal_check(array)
+    	end
+    	 user_fill_cells(array)
+    end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def calculate_winner(array)
+      lines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+      ]
+      lines.each do |line|
+        if array[line[0]] && array[line[0]] == array[line[1]] && array[line[0]] == array[line[2]]
+          return array[line[0]]
+        end
+      end
+    end
 
 
 end

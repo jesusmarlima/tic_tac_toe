@@ -40,6 +40,10 @@ class Board extends React.Component {
   }
 
   calculateWinner(squares) {
+    // debugger;
+    // if (!squares.indexOf(null)) {
+    //   return "tie"
+    // }
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
