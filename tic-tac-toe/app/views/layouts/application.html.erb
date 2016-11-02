@@ -18,7 +18,7 @@
       <nav>
           <div class="nav-wrapper #4a148c purple darken-4">
             <a href="/" class="brand-logo">Tic-tac-Toe</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <ul id="nav-mobile" class="right">
               <%if current_user %>
                 <li><%= link_to current_user.username, user_path(current_user.id)%></li>
                 <li><%= link_to 'logout', session_path(current_user.id), method: :delete %></li>
