@@ -1,7 +1,10 @@
 <div class="">
   <h4><%=@user.username%></h4>
     <%= form_for [@user , @game] do |f| %>
-      <button class="btn waves-effect #2979ff blue accent-3" type="submit" name="action">New Game</button>
+      <button class="btn waves-effect #2979ff blue accent-3 " type="submit" name="action">New Game 3x3 </button>
+    <% end %> <br>
+    <%= form_for [@user , @game], :url => "/games/five/#{@user.id}", method: 'post' do |f| %>
+      <button class="btn waves-effect #2979ff blue accent-3 " type="submit" name="action">New Game 5x5</button>
     <% end %>
 </div>
 

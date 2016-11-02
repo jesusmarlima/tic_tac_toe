@@ -1,6 +1,15 @@
 class Game < ApplicationRecord
   belongs_to :user
 
+
+  def computer_move_five(game)
+       if game.index("")
+         index = game.each_index.select {|i| game[i] == ""}.sample
+         game[index] = 'O'
+       end
+       game
+  end
+
   def computer_move(game)
     return game if calculate_winner(game) == "X"
 
